@@ -1,0 +1,113 @@
+﻿<UserControl x:Class="MatrixMath.Views.UcMatrix"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:viewmodels="clr-namespace:MatrixMath.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:MatrixViewModel}"
+             mc:Ignorable="d"
+             x:Name="Root"
+             d:DesignHeight="300" d:DesignWidth="300"
+             VerticalAlignment="Center"
+             HorizontalAlignment="Center">
+
+    <Grid>
+        <!-- "Тень" сзади (черный фон) -->
+        <Border Background="Black"
+                Margin="5,5,0,0"
+                CornerRadius="3"
+                BorderThickness="1"
+                BorderBrush="Silver"/>
+
+        <!-- Основная "серенькая" панель -->
+        <Border Background="#FFEEEEEE"
+                Padding="5"
+                CornerRadius="3"
+                BorderThickness="1"
+                BorderBrush="Silver"
+                Margin="0,0,5,5">
+
+            <DockPanel>
+
+                <!-- Заголовок (TextBlock) - привязан к VM.MatrixHeader -->
+                <TextBlock DockPanel.Dock="Top"
+                           Text="{Binding MatrixHeader}"
+                           FontSize="12"
+                           FontWeight="Bold"
+                           TextWrapping="Wrap"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Margin="5"/>
+
+                <!-- Сетка, в которой лежит сама матрица (внутри "скобок") и панель кнопок -->
+                <Grid DockPanel.Dock="Top"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>   <!-- Колонка для "скобки" слева -->
+                        <ColumnDefinition/>                <!-- Колонка для самой матрицы -->
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Правая часть: рамка со "скобками" (синий цвет) и внутри - Grid для ячеек -->
+                    <Grid Grid.Column="1"
+                          Grid.Row="1"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Center">
+                        <!-- Несколько "линеек", создающих эффект скобок -->
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2"/>  <!-- левая синяя линия -->
+                            <ColumnDefinition Width="2"/>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="2"/>
+                            <ColumnDefinition Width="2"/>  <!-- правая синяя линия -->
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2"/>    <!-- верхние линии -->
+                            <RowDefinition/>                <!-- пространство под матрицу -->
+                            <RowDefinition Height="2"/>    <!-- нижние линии -->
+                        </Grid.RowDefinitions>
+
+                        <!-- Синие полосы сверху (левая / правая) -->
+                        <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
+                                Background="Blue"/>
+                        <Border Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="2"
+                                Background="Blue"/>
+                        <!-- Синие полосы снизу (левая / правая) -->
+                        <Border Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"
+                                Background="Blue"/>
+                        <Border Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2"
+                                Background="Blue"/>
+                        <!-- Синие полосы слева/справа (вертикальные) -->
+                        <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"
+                                Background="Blue"/>
+                        <Border Grid.Column="4" Grid.Row="0" Grid.RowSpan="3"
+                                Background="Blue"/>
+
+                        <!-- Сюда мы программно (или через ItemsControl) вставляем таблицу TextBox -->
+                        <Grid x:Name="GrdMatrix"
+                              Grid.Column="2"
+                              Grid.Row="1"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Center"/>
+                    </Grid>
+
+                    <!-- Кнопки +/- (привязаны к командам VM) -->
+                    <WrapPanel x:Name="PnlButtons"
+                               Grid.Column="1"
+                               Grid.Row="0"
+                               HorizontalAlignment="Right">
+                        <Button Style="{StaticResource ButtonPlus}"
+                                Command="{Binding MatrixSizeInc}"
+                                Margin="2"/>
+                        <Button Style="{StaticResource ButtonMinus}"
+                                Command="{Binding MatrixSizeDec}"
+                                Margin="2"/>
+                    </WrapPanel>
+                </Grid>
+
+            </DockPanel>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,140 @@
+﻿<Window
+    x:Class="MatrixMath.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="clr-namespace:MatrixMath.Views"
+    xmlns:vm="clr-namespace:MatrixMath.ViewModels"
+    Title="Матричный калькулятор"
+    WindowStartupLocation="CenterScreen"
+    SizeToContent="WidthAndHeight">
+
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
+
+    <DockPanel Margin="5"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Left">
+
+        <Grid>
+            <!-- Колонки -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Строки -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- Матрица A -->
+            <Controls:UcMatrix
+                Margin="5"
+                Grid.Column="0"
+                Grid.Row="0"
+
+                VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                DataContext="{Binding MatrixA}" />
+
+            <!-- Блок с det A -->
+            <DockPanel Grid.Row="1" Grid.Column="0">
+                <Separator DockPanel.Dock="Top"
+                           VerticalAlignment="Top"
+                           Margin="5"
+                           Height="1"
+                           BorderThickness="0,1,0,0"
+                           BorderBrush="Silver" />
+                <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top">
+                    <TextBlock Text="det A="
+                               VerticalAlignment="Top"
+                               Margin="5,1"
+                               FontWeight="Bold" />
+                    <TextBlock VerticalAlignment="Center"
+                               Margin="5,1"
+                               FontWeight="Bold"
+                               Foreground="DarkBlue"
+                               Text="{Binding MatrixA.Determinant}" />
+                </DockPanel>
+            </DockPanel>
+
+            <!-- Обратная матрица A -->
+            <Controls:UcMatrix
+                Grid.Row="2"
+                Grid.Column="0"
+                Margin="5"
+                VerticalAlignment="Top"
+                DataContext="{Binding MatrixInverseA}" />
+
+            <!-- Матрица B -->
+            <Controls:UcMatrix
+                Grid.Column="1"
+                Grid.Row="0"
+                Margin="5"
+                VerticalAlignment="Top"
+                DataContext="{Binding MatrixB}" />
+
+            <!-- Блок с det B -->
+            <DockPanel Grid.Row="1" Grid.Column="1">
+                <Separator DockPanel.Dock="Top"
+                           VerticalAlignment="Top"
+                           Margin="5"
+                           Height="1"
+                           BorderThickness="0,1,0,0"
+                           BorderBrush="Silver" />
+                <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top">
+                    <TextBlock Text="det B="
+                               VerticalAlignment="Top"
+                               Margin="5,1"
+                               FontWeight="Bold" />
+                    <TextBlock VerticalAlignment="Center"
+                               Margin="5,1"
+                               FontWeight="Bold"
+                               Foreground="DarkBlue"
+                               Text="{Binding MatrixB.Determinant}" />
+                </DockPanel>
+            </DockPanel>
+
+            <!-- Обратная матрица B -->
+            <Controls:UcMatrix
+                Grid.Row="2"
+                Grid.Column="1"
+                Margin="5"
+                VerticalAlignment="Top"
+                DataContext="{Binding MatrixInverseB}" />
+
+            <!-- Правая область с операциями -->
+            <Border Grid.Row="0"
+                    Grid.Column="2"
+                    Grid.RowSpan="3"
+                    BorderBrush="Silver"
+                    BorderThickness="1">
+
+                <DockPanel>
+                    <!-- A * B -->
+                    <Controls:UcMatrix
+                        Margin="5"
+                        DockPanel.Dock="Top"
+                        VerticalAlignment="Top"
+                        DataContext="{Binding MatrixMul}" />
+
+                    <!-- A + B -->
+                    <Controls:UcMatrix
+                        Margin="5"
+                        VerticalAlignment="Top"
+                        DataContext="{Binding MatrixSum}" />
+
+                    <!-- A - B -->
+                    <Controls:UcMatrix
+                        Margin="5"
+                        VerticalAlignment="Top"
+                        DataContext="{Binding MatrixDif}" />
+                </DockPanel>
+            </Border>
+        </Grid>
+    </DockPanel>
+</Window>

@@ -1,0 +1,90 @@
+﻿<Application x:Class="MatrixMath.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:MatrixMath"
+             StartupUri="Views/MainWindow.xaml">
+    <Application.Resources>
+
+        <Style x:Key="ButtonPlus" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Image
+                                Name="refreshIcon"
+                                MinWidth="25"
+                                Margin="-1,-1,1,1"
+                                Source="Images/i16/plus.png"
+                                Stretch="Uniform"
+                                StretchDirection="DownOnly">
+                            <Image.Effect>
+                                <DropShadowEffect
+                                        Direction="{DynamicResource defaultShadowDirection}"
+                                        Opacity="0.55"
+                                        ShadowDepth="3" />
+                            </Image.Effect>
+                        </Image>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="refreshIcon" Property="Margin" Value="0,0,0,0" />
+                                <Setter TargetName="refreshIcon" Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect
+                                                Direction="{DynamicResource defaultShadowDirection}"
+                                                Opacity="0.7"
+                                                ShadowDepth="1" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ButtonMinus" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Image
+                                Name="refreshIcon"
+                                MinWidth="25"
+                                Margin="-1,-1,1,1"
+                                Source="Images/i16/minus.png"
+                                Stretch="Uniform"
+                                StretchDirection="DownOnly">
+                            <Image.Effect>
+                                <DropShadowEffect
+                                        Direction="{DynamicResource defaultShadowDirection}"
+                                        Opacity="0.55"
+                                        ShadowDepth="3" />
+                            </Image.Effect>
+                        </Image>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="refreshIcon" Property="Margin" Value="0,0,0,0" />
+                                <Setter TargetName="refreshIcon" Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect
+                                                Direction="{DynamicResource defaultShadowDirection}"
+                                                Opacity="0.7"
+                                                ShadowDepth="1" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+    </Application.Resources>
+</Application>
